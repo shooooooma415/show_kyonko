@@ -42,8 +42,9 @@ def handle_message(event):
     
     message_text = event.message.text.lower()
     
-    if "写真" in message_text:
-        send_random_photo(event.reply_token)
+    if "プロフィール" in message_text:
+        message = TextMessage(text="齊藤京子さんについて紹介します！")
+        line_bot_api.reply_message(event.reply_token, message)
     else:
         message = TextMessage(text=event.message.text + " hello")
         line_bot_api.reply_message(event.reply_token, message)
