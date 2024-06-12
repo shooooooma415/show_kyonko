@@ -37,5 +37,5 @@ async def callback(
 def handle_message(event):
     if event.type != "message" or event.message.type != "text":
         return
-    message = TextMessage(text=event.message.text)
+    message = TextMessage(text=event.message.text + "hallo")
     line_bot_api.reply_message(event.reply_token, message)
