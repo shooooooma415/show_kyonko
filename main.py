@@ -73,7 +73,7 @@ def handle_message(event):
         message = TextMessage(text="齊藤京子さんについて紹介します！")#ここにプロフィールを流すようにするあとでかくor写真を添付
         line_bot_api.reply_message(event.reply_token, message)
     elif "写真" in message_text:
-        random_image_url = "https://show-kyonkouvi.onrender.com/" + "/images1/" + random.choices(files)
+        random_image_url = "https://show-kyonkouvi.onrender.com/" + "images1/" + random.choices(files)
         
         message = ImageSendMessage(
             original_content_url = random_image_url,
