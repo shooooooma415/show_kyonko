@@ -19,7 +19,6 @@ def root():
     return {"title": "Echo Bot"}
 
 directory = './images1'
-files = os.listdir(directory)
 
 @app.get("/images1/{files}")
 async def read_item(files):
@@ -73,6 +72,7 @@ def handle_message(event):
         message = TextMessage(text="齊藤京子さんについて紹介します！")#ここにプロフィールを流すようにするあとでかくor写真を添付
         line_bot_api.reply_message(event.reply_token, message)
     elif "写真" in message_text:
+        files = os.listdir(directory)
         random_image_url = "https://show-kyonkouvi.onrender.com/" + "images1/" + random.choices(files)
         
         message = ImageSendMessage(
