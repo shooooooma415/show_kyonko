@@ -69,7 +69,7 @@ def handle_message(event):
     message_text = event.message.text.lower()
     
     if "プロフィール" in message_text:
-        message = TextMessage(text="齊藤京子さんについて紹介します！" + /n + "齊藤京子" + "1997年9月5日生" + /n + "4/5 齊藤京子卒業コンサート in 横浜スタジアム にて日向坂46を卒業" + "5/1~ 東宝芸能所属")#ここにプロフィールを流すようにするあとでかくor写真を添付
+        message = TextMessage(text="齊藤京子さんについて紹介します！" + /n + "齊藤京子" + "1997年9月5日生" + /n + "4/5 齊藤京子卒業コンサート in 横浜スタジアム にて日向坂46を卒業" + /n + "5/1~ 東宝芸能所属")#ここにプロフィールを流すようにするあとでかくor写真を添付
         line_bot_api.reply_message(event.reply_token, message)
     elif "写真" in message_text:
         files = os.listdir(directory)
