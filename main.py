@@ -73,8 +73,8 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
     elif "写真" in message_text:
         files = os.listdir(directory)
-        random_image_url = "https://show-kyonkouvi.onrender.com/" + "images1/" + random.choices(files)
-        
+        print(files)
+        random_image_url = "https://show-kyonkouvi.onrender.com/" + "images1/" + random.choice(files)
         message = ImageSendMessage(
             original_content_url = random_image_url,
             preview_image_url = random_image_url
