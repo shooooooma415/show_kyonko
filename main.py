@@ -1,10 +1,11 @@
 from fastapi import FastAPI, Request,BackgroundTasks, Header
+from fastapi.responses import FileResponse
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, ImageSendMessage
 from starlette.exceptions import HTTPException
 import os
-import random
+import random #あとでランダムに写真を選択する用
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -15,7 +16,33 @@ handler = WebhookHandler(os.environ["LINE_CHANNEL_SECRET"])
 
 @app.get("/")
 def root():
-    return {"title": "Echo Bot"}    
+    return {"title": "Echo Bot"}
+
+directory = './images1'
+files = os.listdir(directory)
+
+@app.get("/images1/{files}")
+async def read_item(files):
+    img_url = FileResponse(path="./images1/" + files, media_type="image/jpg")
+    return img_url
+
+
+
+# #listが返ってくる
+# def response_image_list():
+#     # 表示したいディレクトリのパスを指定
+#     directory = 'file2/images1'
+
+#     # ファイルとディレクトリの一覧を取得
+#     files = os.listdir(directory)
+
+#     responses = list()
+    
+#     for file in files:
+#         file_path = os.path.join(directory, file)
+#         responses.append(FileResponse(path=file_path, media_type="image/jpg"))
+    
+#     return responses
     
 @app.post("/callback")
 async def callback(
@@ -43,20 +70,16 @@ def handle_message(event):
     message_text = event.message.text.lower()
     
     if "プロフィール" in message_text:
-        message = TextMessage(text="齊藤京子さんについて紹介します！")
+        message = TextMessage(text="齊藤京子さんについて紹介します！")#ここにプロフィールを流すようにするあとでかくor写真を添付
         line_bot_api.reply_message(event.reply_token, message)
-    else:
-        message = TextMessage(text=event.message.text + " hello")
+    elif "写真" in message_text:
+        random_image_url = "/images1/" + random.choices(files)
+        
+        message = ImageSendMessage(
+            original_content_url = random_image_url,
+            preview_image_url = random_image_url
+        )
+        
         line_bot_api.reply_message(event.reply_token, message)
-
-def send_random_photo(reply_token):
-    photo_directory = "images1"  # 写真が格納されているディレクトリ
-    photos = os.listdir(photo_directory)
-    photo_path = os.path.join(photo_directory, random.choice(photos))
-
-    # 画像を送信する
-    message = ImageSendMessage(
-        original_content_url=photo_path,
-        preview_image_url=photo_path
-    )
-    line_bot_api.reply_message(reply_token, message)
+        
+    # 写真という言葉あるとディレクトリから写真がランダムで選ばれて送信されるように
