@@ -75,7 +75,7 @@ def handle_message(event):
     elif "写真" in message_text:
         directory_number_list = list(range(0, 10)) #ディレクトリを指定するため
         n=random.choice(directory_number_list)
-        files = os.listdir('./images{n}')
+        files = os.listdir(f'./images{n}')
         random_image_url = "https://show-kyonkouvi.onrender.com/" + f"images{n}/" + random.choice(files)
         message = ImageSendMessage(
             original_content_url = random_image_url,
