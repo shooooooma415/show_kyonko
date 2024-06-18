@@ -14,15 +14,16 @@ app = FastAPI()
 line_bot_api = LineBotApi(os.environ["LINE_CHANNEL_ACCESS_TOKEN"])
 handler = WebhookHandler(os.environ["LINE_CHANNEL_SECRET"])
 
+directory_number_list = list(range(0, 10)) #ディレクトリを指定するため
+
 @app.get("/")
 def root():
     return {"title": "Echo Bot"}
 
-directory = './images1'
 
-@app.get("/images1/{files}")
-async def read_item(files):
-    img_url = FileResponse(path="./images1/" + files, media_type="image/jpg")
+@app.get("/images{j}/{file_name}") # @ : アノテーションと呼ぶ
+async def read_item(j:str, file_name:str):
+    img_url = FileResponse(path ="./images" + j + "/" + file_name, media_type="image/jpg")
     return img_url
 
 
@@ -72,9 +73,10 @@ def handle_message(event):
         message = TextMessage(text="齊藤京子さんについて紹介します！\n齊藤京子\n1997年9月5日生\n4/5 齊藤京子卒業コンサート in 横浜スタジアム にて日向坂46を卒業\n5/1~ 東宝芸能所属")#ここにプロフィールを流すようにするあとでかくor写真を添付
         line_bot_api.reply_message(event.reply_token, message)
     elif "写真" in message_text:
-        files = os.listdir(directory)
-        print(files)
-        random_image_url = "https://show-kyonkouvi.onrender.com/" + "images1/" + random.choice(files)
+        directory_number_list = list(range(0, 10)) #ディレクトリを指定するため
+        n=random.choice(directory_number_list)
+        files = os.listdir('./images{n}')
+        random_image_url = "https://show-kyonkouvi.onrender.com/" + f"images{n}/" + random.choice(files)
         message = ImageSendMessage(
             original_content_url = random_image_url,
             preview_image_url = random_image_url
