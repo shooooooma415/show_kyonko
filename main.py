@@ -72,7 +72,7 @@ def handle_message(event):
     if "プロフィール" in message_text:
         message = TextMessage(text="齊藤京子さんについて紹介します！\n齊藤京子\n1997年9月5日生\n4/5 齊藤京子卒業コンサート in 横浜スタジアム にて日向坂46を卒業\n5/1~ 東宝芸能所属")#ここにプロフィールを流すようにするあとでかくor写真を添付
         line_bot_api.reply_message(event.reply_token, message)
-    elif "写真" in message_text:
+    elif "写真" in message_text or "しゃしん" in message_text:
         directory_number_list = list(range(0, 79)) #ディレクトリを指定するため
         n=random.choice(directory_number_list)
         files = os.listdir(f'./images{n}')
