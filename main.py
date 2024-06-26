@@ -8,11 +8,11 @@ import os
 import random
 from dotenv import load_dotenv
 import linebot.v3.messaging as bot
-import time
-import linebot.v3.messaging
-from linebot.v3.messaging.models.broadcast_request import BroadcastRequest
-from linebot.v3.messaging.rest import ApiException
-from pprint import pprint
+# import time
+# import linebot.v3.messaging
+# from linebot.v3.messaging.models.broadcast_request import BroadcastRequest
+# from linebot.v3.messaging.rest import ApiException
+# from pprint import pprint
 
 load_dotenv()
 
