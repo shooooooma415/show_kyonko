@@ -19,7 +19,7 @@ load_dotenv()
 app = FastAPI()
 LINE_BOT_API = LineBotApi(os.environ["LINE_CHANNEL_ACCESS_TOKEN"])
 handler = WebhookHandler(os.environ["LINE_CHANNEL_SECRET"])
-LINE_USER_ID = os.getenv('LINE_USER_ID')
+LINE_USER_ID = "U49fdcfbe820b0cb96fd93619f985de2d"
 
 
 @app.get("/")
