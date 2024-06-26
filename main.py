@@ -7,8 +7,12 @@ from starlette.exceptions import HTTPException
 import os
 import random
 from dotenv import load_dotenv
-
 import linebot.v3.messaging as bot
+import time
+import linebot.v3.messaging
+from linebot.v3.messaging.models.broadcast_request import BroadcastRequest
+from linebot.v3.messaging.rest import ApiException
+from pprint import pprint
 
 load_dotenv()
 
@@ -16,6 +20,7 @@ app = FastAPI()
 LINE_BOT_API = LineBotApi(os.environ["LINE_CHANNEL_ACCESS_TOKEN"])
 handler = WebhookHandler(os.environ["LINE_CHANNEL_SECRET"])
 LINE_USER_ID = os.getenv('LINE_USER_ID')
+
 
 @app.get("/")
 def root():
@@ -59,7 +64,24 @@ async def send_message():
             print(res)
         except Exception as e:
             print(f"Exception: {e}")
+
+# @app.get("/broadcast")
+# async def broadcast_image():
+    # configuration = linebot.v3.messaging.Configuration(host = "https://api.line.me")
+    # configuration = linebot.v3.messaging.Configuration(access_token = os.environ["LINE_CHANNEL_ACCESS_TOKEN"])
     
+    # with linebot.v3.messaging.ApiClient(configuration) as api_client:
+    #     # Create an instance of the API class
+    #     api_instance = linebot.v3.messaging.MessagingApi(api_client)
+    #     broadcast_request = linebot.v3.messaging.BroadcastRequest()
+    #     x_line_retry_key = 'x_line_retry_key_example'
+    #     try:
+    #         api_response = api_instance.broadcast(broadcast_request, x_line_retry_key=x_line_retry_key)
+    #         print("The response of MessagingApi->broadcast:\n")
+    #         pprint(api_response)
+    #     except Exception as e:
+    #         print("Exception when calling MessagingApi->broadcast: %s\n" % e)
+
 @app.post("/callback")
 async def callback(
     request: Request,
