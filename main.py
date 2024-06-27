@@ -79,6 +79,10 @@ async def broadcast_image():
     message_dict = {
         "messages": [
             {
+            "type": "text",
+             "text": "broadcast"
+            },
+            {
                 "type": "image",
                 "originalContentUrl": random_image_url,
                 "previewImageUrl": random_image_url
