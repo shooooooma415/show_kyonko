@@ -67,7 +67,8 @@ async def send_message():
         except Exception as e:
             print(f"Exception: {e}")
 
-@app.get("/broadcast")
+@app.api_route("/broadcast", methods=["GET", "HEAD"])
+# @app.get("/broadcast")
 async def broadcast_image():
     configuration = linebot.v3.messaging.Configuration(host = "https://api.line.me")
     configuration = linebot.v3.messaging.Configuration(access_token = os.environ["LINE_CHANNEL_ACCESS_TOKEN"])
