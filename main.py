@@ -68,7 +68,7 @@ async def send_message():
             print(f"Exception: {e}")
 
 @app.api_route("/broadcast", methods=["GET", "HEAD"])
-# @app.get("/broadcast")
+#@app.get("/broadcast")
 async def broadcast_image():
     configuration = linebot.v3.messaging.Configuration(host = "https://api.line.me")
     configuration = linebot.v3.messaging.Configuration(access_token = os.environ["LINE_CHANNEL_ACCESS_TOKEN"])
@@ -143,7 +143,14 @@ def handle_message(event):
             original_content_url = random_image_url,
             preview_image_url = random_image_url
         )
+        LINE_BOT_API.reply_message(event.reply_token, message)
         
+    elif "きょんこポリス" in message_text:
+        image_url = "https://show-kyonkouvi.onrender.com/" + "images30/" + "image_94.jpg"
+        message = ImageSendMessage(
+            original_content_url = image_url,
+            preview_image_url = image_url
+        )
         LINE_BOT_API.reply_message(event.reply_token, message)
         
     
