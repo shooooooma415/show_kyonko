@@ -38,7 +38,7 @@ configuration = bot.Configuration(
 )
 
 
-@app.get("/send")
+@app.api_route("/send", methods=["GET", "HEAD"])
 async def send_message():
     
     directory_number_list = list(range(0, 79))
@@ -49,6 +49,10 @@ async def send_message():
     message_dict = {
         "to": LINE_USER_ID,
         "messages": [
+            {
+            "type": "text",
+             "text": "毎日きょんこ"
+            },
             {
                 "type": "image",
                 "originalContentUrl": random_image_url,
