@@ -146,7 +146,9 @@ def handle_message(event):
         LINE_BOT_API.reply_message(event.reply_token, message)
         
     elif "きょんこポリス" in message_text:
-        image_url = "https://show-kyonkouvi.onrender.com/" + "images30/" + "image_94.jpg"
+        kyonko_police_number_list = list(range(82,97))
+        i = random.choice(kyonko_police_number_list)
+        image_url = "https://show-kyonkouvi.onrender.com/" + "images30/" + f"image_{i}.jpg"
         message = ImageSendMessage(
             original_content_url = image_url,
             preview_image_url = image_url
