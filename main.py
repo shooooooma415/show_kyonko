@@ -86,7 +86,7 @@ async def broadcast_image():
         "messages": [
             {
             "type": "text",
-             "text": "毎日きょんこ"
+            "text": "毎日きょんこ"
             },
             {
                 "type": "image",
